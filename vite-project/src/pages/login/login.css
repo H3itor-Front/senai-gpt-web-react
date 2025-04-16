@@ -1,3 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+*{
+
+padding: 0px;
+margin: 0px;
+box-sizing: border-box;
+
+}
+
+
+/* .Titulo{
+
+font-size: 76px;
+
+}
+
+#meutitulo{
+
+font-size: 76px;
+
+}
+
+/* {  */
+
 .page-container{
 
     display: flex;
@@ -36,7 +61,7 @@
     
     .robo-image{
        
-    background-image: url(..//assets/img/Sidebar.png);
+    background-image: url("../../assets/img/Sidebar.png");
     background-size: contain;
     background-repeat: no-repeat;
     

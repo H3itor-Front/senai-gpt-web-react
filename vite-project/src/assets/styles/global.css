@@ -1,0 +1,26 @@
+.input {
+
+    padding: 18px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #F7F9FB;
+    width: 377px;
+    margin-bottom: 16px;
+
+}
+
+.btn {
+
+    padding: 18px;
+    width: 377px;
+    border: none;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+}
+
+button {
+
+    cursor: pointer;
+
+}
