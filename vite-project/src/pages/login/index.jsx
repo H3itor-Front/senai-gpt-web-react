@@ -1,7 +1,5 @@
 import "./login.css";
-
 import logo from "../../assets/img/BLA.png";
-
 import { useState } from "react";
 
 function Login() {
@@ -9,9 +7,24 @@ function Login() {
   const [email, setEmail] = useState ();
   const [password, setPassword] = useState();
 
-  const onLoginClick = () => {
+  const onLoginClick = async () => {
 
-alert("funcionou!")
+let response = await fetch ("https://senai-gpt-api.azurewebsites.net/login",{
+
+  headers:{
+
+        "content-type": "application/json"
+
+  },
+  method: "POST",
+  body:JSON.stringify({
+      email: email, 
+      password: password
+  })
+
+});
+
+console.log(response);  
 
   }
 
