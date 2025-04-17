@@ -11,6 +11,7 @@
  ## HTTP methods
 1. GET trazer uma lista para o codigo
 2. POST enviar ou trazer uma informação
-3. PUT atualizar algum valor
-4. DELETE deletar algo
+3. PATCH atualizar um recurso existente
+4. PUT atualizar algum valor
+5. DELETE deletar algo
 ![image](https://github.com/user-attachments/assets/e55b5873-f963-4f16-8c83-2179e8eba886)
