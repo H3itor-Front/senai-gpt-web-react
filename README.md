@@ -15,7 +15,7 @@
 4. PUT atualizar algum valor
 5. DELETE deletar algo
 ![image](https://github.com/user-attachments/assets/e55b5873-f963-4f16-8c83-2179e8eba886)
- ## HTTP STATUS
+ ## HTTP STATUS CODE
  se você quiser  saber sobre os status do HTTP olhe esse site
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
 ele vai te explicar o que é cada erro
