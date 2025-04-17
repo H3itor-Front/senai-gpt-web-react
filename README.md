@@ -3,7 +3,9 @@
 1. Verificar se você tem o node v20.
 2. npm create vite...
 3. npm run dev = lincar com o google
-4. ![image](https://github.com/user-attachments/assets/94321e5e-6d44-4cc8-b657-186113d23aa5)
+    ![image](https://github.com/user-attachments/assets/94321e5e-6d44-4cc8-b657-186113d23aa5)
+4. Para usar esse comando você precisa ir no terminal e trocar a fonte para git bash
+![image](https://github.com/user-attachments/assets/e854c3e0-7796-4031-9d6d-4c14fbe3b21b)
 
  # JSON - HTTP
  ## HTTP methods
