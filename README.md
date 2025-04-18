@@ -20,4 +20,4 @@
  ## HTTP STATUS CODE
  se você quiser  saber sobre os status do HTTP olhe esse site
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
-ele vai te explicar o que é cada erro
+ele vai te explicar o que é cada codigo
