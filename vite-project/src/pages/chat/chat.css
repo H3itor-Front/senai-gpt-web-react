@@ -18,7 +18,7 @@
 
 }
 
-.central-panel .logo {
+.central-panel .chat-logo {
     
     margin-top: 25vh;
 
@@ -45,9 +45,9 @@
 
     margin-bottom: 20px;
 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
+    display: flex; /* Usa o modelo Flexbox para organizar os elementos */
+    flex-direction: column; /* Organiza os elementos em colunas */
+    align-items: center; /* Cetraliza horizontalmente */
 
 }
 
@@ -61,7 +61,7 @@
 }
 
 .container {
-    
+
     display: flex;
 
 }
@@ -98,9 +98,10 @@
     border-radius: 12px;
     margin-bottom: 10px;
     text-align: left;
-    display: flex;
-    flex-direction: row; 
-    align-items: center; 
+
+    display: flex; /* Usa o modelo Flexbox para organizar os elementos */
+    flex-direction: row; /* Organiza os elementos em linhas */
+    align-items: center; /* Centraliza verticalmente */
 
 }
 
@@ -121,16 +122,20 @@
 
     margin-top: auto;
     margin-bottom: 40px;
-    
+
     display: flex;
     align-items: center;
+
     border: none;
     background-color: #F7F9FB;
+
     border-radius: 16px;
+
     padding-left: 15px;
     padding-right: 15px;
 
 }
+
 .input-container-1 input {
 
     border: none;
@@ -139,11 +144,20 @@
     width: 40vw;
 
 }
-.input-container-1 img{
 
-height: 28px;
-padding: 5px;
+.input-container-2 {
 
+    margin-top: auto;
+    margin-bottom: 40px;
 
+}
+
+.input-container-2 input {
+
+    padding: 20px;
+    border: none;
+    background-color: #F7F9FB;
+    border-radius: 16px;
+    width: 40vw;
 
 }

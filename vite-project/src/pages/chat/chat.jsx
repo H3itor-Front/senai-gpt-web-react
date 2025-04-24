@@ -1,4 +1,12 @@
 import "./chat.css";
+import Icon from "../../assets/img/IconSet.svg";
+import chat from "../../assets/img/BLA.png";
+import lolo from "../../assets/img/Chats.png";
+import vator from "../../assets/img/Vector.png";
+import star from "../../assets/img/Star.png";
+import enviar from "../../assets/img/send.png";
+import imagen from "../../assets/img/Vector (1).png";
+import micro from "../../assets/img/Vector (2).png";
 
 
 function Chat() {
@@ -15,17 +23,17 @@ function Chat() {
                     <button className="btn-new-chat">+ New chat</button>
 
                     <button className="btn-chat">
-                        <img src="../assets/img/IconSet.svg" alt="ícone de chat." />
+                        <img className="IconSet" src={Icon} alt="ícone de chat."/>
                         AI Chat Tool Ethics
                     </button>
 
                     <button className="btn-chat">
-                        <img src="../assets/img/IconSet.svg" alt="ícone de chat." />
+                        <img className="IconSet" src={Icon}alt="ícone de chat." />
                         AI Chat Tool Impact Writing
                     </button>
 
                     <button className="btn-chat">
-                        <img src="../assets/img/IconSet.svg" alt="ícone de chat." />
+                        <img className="IconSet" src={Icon} alt="ícone de chat." />
                         New chat
                     </button>
 
@@ -46,7 +54,7 @@ function Chat() {
             <main className="central-panel" />
 
             <div className="logo">
-                <img src="../assets/img/BLA.png" alt="Logo do SenaiGPT." />
+                <img className="Logo" src={chat} alt="Logo do SenaiGPT." />
             </div>
 
             <div className="dicas-container">
@@ -54,7 +62,7 @@ function Chat() {
                 <div className="dicas-item">
 
                     <h2>
-                        <img src="../assets/img/Chats.png" alt="Example icon." />
+                        <img className="caixa" src={lolo} alt="Example icon." />
                         Examples
                     </h2>
 
@@ -67,7 +75,7 @@ function Chat() {
                 <div className="dicas-item">
 
                     <h2>
-                        <img src="../assets/img/Star.png" alt="Example icon." />
+                        <img className="estrelala" src={star} alt="Example icon." />
                         Capabilities
                     </h2>
 
@@ -80,7 +88,7 @@ function Chat() {
                 <div className="dicas-item">
 
                     <h2>
-                        <img src="../assets/img/Vector.png" alt="Example icon." />
+                        <img className="Vetor" src={vator} alt="Example icon." />
                         Limitations
                     </h2>
 
@@ -95,12 +103,12 @@ function Chat() {
 
             <div className="input-container-1" />
 
-            <img src="../assets/img/Vector (1).png" alt="Microfone." />
-            <img src="../assets/img/Vector (2).png" alt="Image." />
+            <img className="Micrafone" src={micro} alt="Microfone." />
+            <img className="inmage" src={imagen} alt="Image." />
 
             <input placeholder="Type a message." type="text" />
 
-            <img src="../assets/img/send.png" alt="Send." />
+            <img className="sendar" src={enviar} alt="Send." />
 
             <div />
 
