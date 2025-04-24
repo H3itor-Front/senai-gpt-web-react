@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./pages/login";
+import Login from "./pages/login/index.jsx";
+import Chat from "./pages/chat/chat.jsx";
 
 function App() {
 
@@ -10,8 +11,8 @@ function App() {
         <Routes>
 
           <Route path="/" element={<Login/>}></Route>
-          <Route path="/Login" element={<Login/>}></Route>
-          {/* <Rount path="/chat" element={<Chat />}></Rount> */}
+          <Route path="/login" element={<Login/>}></Route>
+          <Route path="/chat" element={<Chat/>}></Route>
           <Route path="*" element={<h1>Not Found</h1>}></Route>
 
         </Routes>
