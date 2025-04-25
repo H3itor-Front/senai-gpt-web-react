@@ -7,9 +7,65 @@ import star from "../../assets/img/Star.png";
 import enviar from "../../assets/img/send.png";
 import imagen from "../../assets/img/Vector (1).png";
 import micro from "../../assets/img/Vector (2).png";
-
+import { useEffect, useState } from "react";
 
 function Chat() {
+
+
+    const [chats, setChats] = useState([]);
+    const [chatSelecionado, SetChatSelecionado] = useState(null);
+
+    useEffect(() => {
+
+        // Executada toda vez que a tela abre.
+        getChats();
+
+
+    }, []);
+
+    const getChats = async () => {
+        // Arrow Function
+        let response = await fetch("https://senai-gpt-api.azurewebsites.net/chats", {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("meuToken")
+            }
+        });
+
+        console.log(response);
+
+        if (response.ok == true) {
+
+            let json = await response.json(); // Pegue as informações dos chats.
+
+            setChats(json);
+
+        } else {
+
+            if (response.status == 401) {
+
+                alert("Token inválido. Faça login novamente.");
+                localStorage.clear();
+                window.location.href = "/login";
+
+            }
+
+            const onLogOutclick = () => {
+
+                localStorage.clear();
+                window.location.href = "/login";
+
+            }
+
+            const clickChat = (chat) => {
+
+                SetChatSelecionado(chat);
+                console.log(chat);
+
+            }
+
+        }
+
+    }
 
     return (
         <>
@@ -22,13 +78,20 @@ function Chat() {
 
                     <button className="btn-new-chat">+ New chat</button>
 
+                    {chats.map(chat => (
+                        <button className="btn-chat" onClick={() => clickChat(chat)}>
+                            <img src={btn} alt="" />
+                            {chat.chatTitle};
+                        </button>
+                    ))}
+
                     <button className="btn-chat">
-                        <img className="IconSet" src={Icon} alt="ícone de chat."/>
+                        <img className="IconSet" src={Icon} alt="ícone de chat." />
                         AI Chat Tool Ethics
                     </button>
 
                     <button className="btn-chat">
-                        <img className="IconSet" src={Icon}alt="ícone de chat." />
+                        <img className="IconSet" src={Icon} alt="ícone de chat." />
                         AI Chat Tool Impact Writing
                     </button>
 
@@ -53,52 +116,61 @@ function Chat() {
 
             <main className="central-panel" />
 
-            <div className="logo">
-                <img className="Logo" src={chat} alt="Logo do SenaiGPT." />
-            </div>
+            {chatSelecionado == null && (
+                <>
+                    <div className="logo">
+                        <img className="Logo" src={chat} alt="Logo do SenaiGPT." />
+                    </div>
 
-            <div className="dicas-container">
 
-                <div className="dicas-item">
+                    <div className="dicas-container">
 
-                    <h2>
-                        <img className="caixa" src={lolo} alt="Example icon." />
-                        Examples
-                    </h2>
+                        <div className="dicas-item">
 
-                    <p>"Explain quantum computing insimple terms"</p>
-                    <p>"Got any creative ideas for a 10year old's birthday?"</p>
-                    <p>"How do I make an HTTP requestin Javascript?"</p>
+                            <h2>
+                                <img className="caixa" src={lolo} alt="Example icon." />
+                                Examples
+                            </h2>
 
-                </div>
+                            <p>"Explain quantum computing insimple terms"</p>
+                            <p>"Got any creative ideas for a 10year old's birthday?"</p>
+                            <p>"How do I make an HTTP requestin Javascript?"</p>
 
-                <div className="dicas-item">
+                        </div>
 
-                    <h2>
-                        <img className="estrelala" src={star} alt="Example icon." />
-                        Capabilities
-                    </h2>
+                        <div className="dicas-item">
 
-                    <p>Remembers what user saidearlier in the conversation.</p>
-                    <p>Allows user to provide follow-up corrections.</p>
-                    <p>Trained to decline inappropriate requests.</p>
+                            <h2>
+                                <img className="estrelala" src={star} alt="Example icon." />
+                                Capabilities
+                            </h2>
 
-                </div>
+                            <p>Remembers what user saidearlier in the conversation.</p>
+                            <p>Allows user to provide follow-up corrections.</p>
+                            <p>Trained to decline inappropriate requests.</p>
 
-                <div className="dicas-item">
+                        </div>
 
-                    <h2>
-                        <img className="Vetor" src={vator} alt="Example icon." />
-                        Limitations
-                    </h2>
+                        <div className="dicas-item">
 
-                    <p>May occasionally generate incorrect information.</p>
-                    <p>May occasionally produce harmful instructions or biased content.</p>
-                    <p>Limited knowledge of world andevents after 2021.</p>
+                            <h2>
+                                <img className="Vetor" src={vator} alt="Example icon." />
+                                Limitations
+                            </h2>
 
-                </div>
+                            <p>May occasionally generate incorrect information.</p>
+                            <p>May occasionally produce harmful instructions or biased content.</p>
+                            <p>Limited knowledge of world andevents after 2021.</p>
 
-            </div>
+                        </div>
+
+                    </div>
+
+                </>
+            )}
+
+
+
 
 
             <div className="input-container-1" />
