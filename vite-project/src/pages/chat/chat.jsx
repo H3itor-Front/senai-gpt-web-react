@@ -14,6 +14,8 @@ function Chat() {
 
     const [chats, setChats] = useState([]);
     const [chatSelecionado, SetChatSelecionado] = useState(null);
+    const [userMessage, setUserMessage] = useState("");
+
 
     useEffect(() => {
 
@@ -62,15 +64,77 @@ function Chat() {
                 console.log(chat);
 
             }
+        
+        }
+
+            const chatGPT = async (menssage) => {
+
+                const chatGPT = async (message) => {
+
+                    // Configurações do endpoint e chave da API
+                    const endpoint = "https://ai-testenpl826117277026.openai.azure.com/";
+                    const apiKey = "DCYQGY3kPmZXr0lh7xeCSEOQ5oiy1aMlN1GeEQd5G5cXjuLWorWOJQQJ99BCACYeBjFXJ3w3AAAAACOGol8N";
+                    const deploymentId = "gpt-4"; // Nome do deployment no Azure OpenAI
+                    const apiVersion = "2024-05-01-preview"; // Verifique a versão na documentação
+
+                    // URL para a chamada da API
+                    const url = `${endpoint}/openai/deployments/${deploymentId}/chat/completions?api-version=${apiVersion}`;
+
+                    // Configurações do corpo da requisição
+                    const data = {
+                        messages: [{ role: "user", content: message }],
+                        max_tokens: 50
+                    };
+
+                    // Cabeçalhos da requisição
+                    const headers = {
+                        "Content-Type": "application/json",
+                        "api-key": apiKey
+                    };
+
+                    // Faz a requisição com fetch
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: headers,
+                        body: JSON.stringify(data)
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        const botMessage = result.choices[0].message.content;
+                        console.log("Bot message: ", botMessage);
+                        return botMessage;
+                    }
+
+                }
+
+            }
+
+        
+
+        const enviarMensagem = async (message) => {
+
+            let resposta = await chatGPT (message);
+            console.log("Resposta: ", resposta)
+
+            const novaMensagemUsuario = {
+
+                userId : "",
+                text : message,
+                id : 10
+
+
+            }
 
         }
+
 
     }
 
     return (
         <>
 
-            <div className="container" />
+            <div className="container"/>
 
             <header className="left-panel">
 
@@ -80,7 +144,7 @@ function Chat() {
 
                     {chats.map(chat => (
                         <button className="btn-chat" onClick={() => clickChat(chat)}>
-                            <img src={btn} alt="" />
+                            <img src="../../assets/img/IconSet.svg" alt="" />
                             {chat.chatTitle};
                         </button>
                     ))}
@@ -138,39 +202,70 @@ function Chat() {
 
                         </div>
 
-                        <div className="dicas-item">
-
-                            <h2>
-                                <img className="estrelala" src={star} alt="Example icon." />
-                                Capabilities
-                            </h2>
-
-                            <p>Remembers what user saidearlier in the conversation.</p>
-                            <p>Allows user to provide follow-up corrections.</p>
-                            <p>Trained to decline inappropriate requests.</p>
-
-                        </div>
-
-                        <div className="dicas-item">
-
-                            <h2>
-                                <img className="Vetor" src={vator} alt="Example icon." />
-                                Limitations
-                            </h2>
-
-                            <p>May occasionally generate incorrect information.</p>
-                            <p>May occasionally produce harmful instructions or biased content.</p>
-                            <p>Limited knowledge of world andevents after 2021.</p>
-
-                        </div>
-
                     </div>
 
                 </>
             )}
 
+            {chatSelecionado != null && (
+
+                <>
+
+                    <div className="chat-container">
+
+                        <div className="chat-header">
+
+                            <h2>[chatSelecionado.chatTitle]</h2>
+
+                        </div>
+
+                        <div className="chat-messages">
+
+                            {chatSelecionado.messages.map(message => (
+
+                                <p className={"menssage-item" + (message.userId == "chatbot" ? "chatbot" : "")} >{message.text}</p>
+
+                            ))}
+
+                        </div>
 
 
+
+
+                    </div>
+
+
+
+                </>
+
+            )}
+
+            <div className="dicas-item">
+
+                <h2>
+                    <img className="estrelala" src={star} alt="Example icon." />
+                    Capabilities
+                </h2>
+
+                <p>Remembers what user saidearlier in the conversation.</p>
+                <p>Allows user to provide follow-up corrections.</p>
+                <p>Trained to decline inappropriate requests.</p>
+
+            </div>
+
+
+            <div className="dicas-item">
+
+                <h2>
+                    <img className="Vetor" src={vator} alt="Example icon." />
+                    Limitations
+                </h2>
+
+                <p>May occasionally generate incorrect information.</p>
+                <p>May occasionally produce harmful instructions or biased content.</p>
+                <p>Limited knowledge of world andevents after 2021.</p>
+
+            </div>
 
 
             <div className="input-container-1" />
@@ -178,9 +273,13 @@ function Chat() {
             <img className="Micrafone" src={micro} alt="Microfone." />
             <img className="inmage" src={imagen} alt="Image." />
 
-            <input placeholder="Type a message." type="text" />
+            <input value={userMessage}
+                onChange={event => setUserMessage(event.target.value)}
+                placeholder="Type a message."
+                type="text"
+            />
 
-            <img className="sendar" src={enviar} alt="Send." />
+            <img onClick={() => enviarMensagem(userMessage)} className="sendar" src={enviar} alt="Send." />
 
             <div />
 
@@ -192,4 +291,4 @@ function Chat() {
     )
 }
 
-export default Chat;
+export default Chat; 

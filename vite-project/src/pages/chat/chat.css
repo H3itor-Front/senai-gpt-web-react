@@ -119,11 +119,12 @@
 
 .input-container-1 {
 
-    margin-top: auto;
-    margin-bottom: 40px;
+    margin-top: none;
+    margin-bottom: -1000px;
     
     display: flex;
     align-items: center;
+    justify-items: center;
     border: none;
     background-color: #F7F9FB;
     border-radius: 16px;
