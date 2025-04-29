@@ -33,9 +33,13 @@ function Login() {
 
       let token = json.accessToken;
 
+      let userId = json.user.id;
+
       console.log("Token " + token);
 
       localStorage.setItem("meuToken", token);
+
+      localStorage.setItem("meuId", userId);
 
       //COOKIES
 
