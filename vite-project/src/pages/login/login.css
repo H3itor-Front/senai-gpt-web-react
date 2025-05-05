@@ -43,7 +43,7 @@ font-size: 76px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 70vh;
+    height: 100vh;
     width: 50vw;
     
     
@@ -62,11 +62,39 @@ font-size: 76px;
     .robo-image{
        
     background-image: url("../../assets/img/Sidebar.png");
-    background-size: contain;
-    background-repeat: no-repeat;
+    background-size: cover;
     
+    /* background-repeat: no-repeat;*/
     width: 50vw;
     height: 100vh;
     
     
     }
+@media screen and (max-width: 1366px) {
+
+    /* Desktop pequeno */
+    
+}
+@media screen and (max-width: 1000px) {
+
+    /* Tablet */
+    
+}
+@media screen and (max-width: 768px) {
+
+    /* Celular */
+    
+
+.robo-image{
+
+    display: none;
+
+}
+.login-container{
+
+    width: 100vw;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../../assets/img/Sidebar.png");
+    background-size: cover;
+}
+
+}

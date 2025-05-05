@@ -10,7 +10,6 @@ import micro from "../../assets/img/Vector (2).png";
 import { useEffect, useState } from "react";
 
 function Chat() {
-
     const [chats, setChats] = useState([]);
     const [chatSelecionado, setChatSelecionado] = useState(null);
     const [userMessage, setUserMessage] = useState("");
@@ -20,49 +19,55 @@ function Chat() {
     }, []);
 
     const getChats = async () => {
-        let response = await fetch("https://senai-gpt-api.azurewebsites.net/chats", {
+        let response = await fetch("https://senai-gpt-api.up.railway.app/users", {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("meuToken")
             }
         });
 
-        console.log(response);
-
-        if (response.ok == true) {
-
-            let json = await response.json(); // Pegue as informações dos chats.
-
+        if (response.ok) {
+            let json = await response.json();
             setChats(json);
-
-        } else {
-
-            if (response.status == 401) {
-
-                alert("Token inválido. Faça login novamente.");
-                localStorage.clear();
-                window.location.href = "/login";
-
-            }
-
+        } else if (response.status === 401) {
+            alert("Token inválido. Faça login novamente.");
+            localStorage.clear();
+            window.location.href = "/login";
         }
-
-    }
+    };
 
     const onLogOutClick = () => {
-
         localStorage.clear();
         window.location.href = "/login";
-
-    }
+    };
 
     const clickChat = (chat) => {
-
         setChatSelecionado(chat);
-        console.log(chat);
+    };
 
-    }
+
+    const deletarChat = async (chatId) => {
+        const confirmacao = window.confirm("Deseja realmente excluir este chat?");
+        if (!confirmacao) return;
+
+        let response = await fetch(`https://senai-gpt-api.up.railway.app/users${chatId}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("meuToken")
+            }
+        });
+
+        if (response.ok) {
+            setChatSelecionado(null);
+            await getChats();
+        } else {
+            alert("Erro ao excluir o chat.");
+        }
+    };
 
     const chatGPT = async (message) => {
+
+            return "[Mensagem fixa]";
+
         const endpoint = "https://ai-testenpl826117277026.openai.azure.com/";
         const apiKey = "DCYQGY3kPmZXr0lh7xeCSEOQ5oiy1aMlN1GeEQd5G5cXjuLWorWOJQQJ99BCACYeBjFXJ3w3AAAAACOGol8N";
         const deploymentId = "gpt-4";
@@ -79,63 +84,104 @@ function Chat() {
             "api-key": apiKey
         };
 
-        // Faz a requisição com fetch
         const response = await fetch(url, {
             method: "POST",
-            headers: headers,
+            headers,
             body: JSON.stringify(data)
         });
 
         if (response.ok) {
             const result = await response.json();
-            const botMessage = result.choices[0].message.content;
-            return botMessage;
+            return result.choices[0].message.content;
         }
-
-    }
+    };
 
     const enviarMensagem = async (message) => {
+        let chatAtual = { ...chatSelecionado };
 
-        console.log("Mensagem", message);
+        if (!chatSelecionado) {
+            chatAtual = await novoChat();
+        }
 
         let userId = localStorage.getItem("meuId");
 
         let novaMensagemUsuario = {
-
+            userId: crypto.randomUUID(),
             text: message,
-            id: crypto.randomUUID(),
-            userId: userId
+            id: userId
         };
 
-
-        let novoChatSelecionado = { ...chatSelecionado };
+        let novoChatSelecionado = { ...chatAtual };
         novoChatSelecionado.messages.push(novaMensagemUsuario);
         setChatSelecionado(novoChatSelecionado);
 
-        let respostaGPT = await chatGPT(message);
+        let resposta = await chatGPT(message);
 
-        let novaMensagemGPT = {
-
-            text: respostaGPT,
-            id: crypto.randomUUID(),
-            userId: "chatbot"
+        let novaRespostaChatGPT = {
+            userId: "chatbot",
+            text: resposta,
+            id: crypto.randomUUID()
         };
 
-        novoChatSelecionado = { ...chatSelecionado };
-        novoChatSelecionado.messages.push(novaMensagemGPT);
-        setChatSelecionado(novoChatSelecionado);
+        novoChatSelecionado.messages.push(novaRespostaChatGPT);
+        setChatSelecionado({ ...novoChatSelecionado });
 
-        console.log("resposta", respostaGPT);
+        let response = await fetch(`https://senai-gpt-api.up.railway.app/users${chatAtual.id}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("meuToken")
+                },
+                body: JSON.stringify(novoChatSelecionado)
+            }
+        );
 
-    }
+        if (response.ok) {
+            console.log("Chat atualizado com sucesso.");
+        } else {
+            console.log("Erro ao atualizar o chat.");
+        }
 
-    // let novoTitulo = prompt("Insira o titulo do chat: ");
+        setUserMessage("");
+        await getChats();
+    };
 
-    // if (novoTitulo == null || novoTitulo == "")
+    const novoChat = async () => {
+        let nomeChat = prompt("Digite o nome do novo chat:");
+        if (!nomeChat) {
+            alert("Nome inválido.");
+            return;
+        }
 
+        let userId = localStorage.getItem("meuId");
+        let novoChatObj = {
+            id: crypto.randomUUID(),
+            chatTitle: nomeChat,
+            messages: [],
+            userId
+        };
 
+        setChatSelecionado(novoChatObj);
+        setUserMessage("");
 
-XMLDocument
+        let response = await fetch("https://senai-gpt-api.up.railway.app/users", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("meuToken")
+            },
+            body: JSON.stringify(novoChatObj)
+        });
+
+        if (response.ok) {
+            await getChats();
+            return novoChatObj;
+        } else {
+            console.log("Erro ao criar o chat.");
+        }
+    };
+
     return (
         <>
             <div className="container">
