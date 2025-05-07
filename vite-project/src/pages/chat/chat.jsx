@@ -14,7 +14,7 @@ function Chat() {
     const [chatSelecionado, setChatSelecionado] = useState(null);
     const [userMessage, setUserMessage] = useState("");
 
-    const [isLeftPanelOpen, setIsLeftPanelOpen] = useState(false);
+    const [IsLeftPanelOpen , setIsLeftPanelOpen] = useState(false);
 
     useEffect(() => {
         getChats();
@@ -44,6 +44,7 @@ function Chat() {
 
     const clickChat = (chat) => {
         setChatSelecionado(chat);
+        setIsLeftPanelOpen(false)
     };
 
 
@@ -190,11 +191,11 @@ function Chat() {
 
                 <button
                     className="btn-toggle-panel"
-                    onClick={() => setIsLeftPanelOpen(true)}
+                    onClick={() => setIsLeftPanelOpen(!IsLeftPanelOpen)}    
                 >
                     ☰
                 </button>
-                <header className={'left-panel open ${isLeftPanelOpen == true ? "open" : " "}'}>
+                <header className={`left-panel ${IsLeftPanelOpen == true ? "open" : " "}`}>                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 
                     <div className="top">
 
